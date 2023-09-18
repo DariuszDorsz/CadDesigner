@@ -31,10 +31,23 @@ namespace CadDesigner.Infrastructure.Persistence
                 .Property(u => u.Email)
                 .IsRequired();
 
+            modelBuilder.Entity<Role>().HasData(
+           new Role
+           {
+               Id = 1,
+               Name = "Administrator"
+           },
+           new Role
+           {
+               Id = 2,
+               Name = "Designer"
+           }
+           );
+
             modelBuilder.Entity<Role>()
                 .Property(u => u.Name)
                 .IsRequired();
-
+      
             modelBuilder.Entity<DesigneOffice>()
                 .Property(r => r.Name)
                 .IsRequired()
