@@ -10,4 +10,13 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aplication\CadDesigner.Aplication.csproj" />
+    <ProjectReference Include="..\Infrastructure\CadDesigner.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
