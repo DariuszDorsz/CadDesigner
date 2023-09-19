@@ -1,4 +1,4 @@
-﻿using CadDesigner.Aplication.Exception;
+﻿using CadDesigner.Aplication.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ namespace CadDesigner.Aplication.Middleware
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(notFoundException.Message);
             }
-            catch (System.Exception)
+            catch (Exception)
             {             
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsync("Something went wrong");

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CadDesigner.Aplication.Exception
+namespace CadDesigner.Aplication.Exceptions
 {
     public class BadRequestException : System.Exception
     {

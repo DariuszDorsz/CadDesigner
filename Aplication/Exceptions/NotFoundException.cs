@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace CadDesigner.Aplication.Exception
+namespace CadDesigner.Aplication.Exceptions
 {
     public class NotFoundException : Exception
     {
-        public NotFoundException() 
-        { }
+        public NotFoundException(string message) : base(message)
+        {
+
+        }
     }
 }
+
