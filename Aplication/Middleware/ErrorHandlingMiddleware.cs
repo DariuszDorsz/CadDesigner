@@ -1,17 +1,23 @@
-﻿using CadDesigner.Aplication.Exceptions;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using CadDesigner.Aplication.Exceptions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+
 
 namespace CadDesigner.Aplication.Middleware
 {
-    internal class ErrorHandlingMiddleware : IMiddleware
+   public class ErrorHandlingMiddleware : IMiddleware
     {
-     
+        private readonly ILogger<ErrorHandlingMiddleware> _logger;
+        public ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger)
+        {
+            _logger = logger;
+        }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -21,6 +27,7 @@ namespace CadDesigner.Aplication.Middleware
             catch (ForbidException forbidException)
             {
                 context.Response.StatusCode = 403;
+                await context.Response.WriteAsync(forbidException.Message);
             }
             catch (BadRequestException badRequestException)
             {
@@ -32,8 +39,10 @@ namespace CadDesigner.Aplication.Middleware
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(notFoundException.Message);
             }
-            catch (Exception)
-            {             
+            catch (Exception e)
+            {      
+                _logger.LogError(e, e.Message);
+
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsync("Something went wrong");
             }

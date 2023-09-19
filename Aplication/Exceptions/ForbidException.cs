@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CadDesigner.Aplication.Exceptions
 {
-    public class ForbidException : System.Exception
+    public class ForbidException : Exception
     {
         public ForbidException(string? message) : base(message)
         {

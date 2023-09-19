@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CadDesigner.Aplication.Middleware;
+using CadDesigner.Domain.Entitys;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace CadDesigner.Aplication.Extension
     {
         public static void AddAplication(this IServiceCollection service)
         {
-            Console.WriteLine("DDD");
+            service.AddScoped<ErrorHandlingMiddleware>();
         }
     }
 }

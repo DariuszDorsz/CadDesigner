@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CadDesigner.Aplication.Exceptions
 {
-    public class BadRequestException : System.Exception
+    public class BadRequestException : Exception
     {
         public BadRequestException(string? message) : base(message)
         {
