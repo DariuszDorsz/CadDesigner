@@ -15,11 +15,7 @@ namespace CadDesigner.Infrastructure.Extension
 
         public static void AddInfrastructure(this IServiceCollection service, IConfiguration configuration)
         {
-            service.AddDbContext<DesignerDbContext>(option => option.UseSqlServer(configuration.GetConnectionString("CadDesigner")));
-            
+            service.AddDbContext<DesignerDbContext>(option => option.UseSqlServer(configuration.GetConnectionString("CadDesigner")));            
         }
-
-
-
     }
 }
