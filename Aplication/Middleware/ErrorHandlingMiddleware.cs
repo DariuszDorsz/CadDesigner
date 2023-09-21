@@ -40,8 +40,8 @@ namespace CadDesigner.Aplication.Middleware
                 await context.Response.WriteAsync(notFoundException.Message);
             }
             catch (Exception e)
-            {      
-                _logger.LogError(e, e.Message);
+            {     
+                _logger.LogError("Error", e.Message);
 
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsync("Something went wrong");

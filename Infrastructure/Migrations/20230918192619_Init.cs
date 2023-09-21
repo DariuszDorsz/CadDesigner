@@ -66,7 +66,7 @@ namespace CadDesigner.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DesigneOffices",
+                name: "Designers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -114,7 +114,7 @@ namespace CadDesigner.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Services_DesigneOffices_DesigneOfficeId",
                         column: x => x.DesigneOfficeId,
-                        principalTable: "DesigneOffices",
+                        principalTable: "Designers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -130,13 +130,13 @@ namespace CadDesigner.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_DesigneOffices_AddressId",
-                table: "DesigneOffices",
+                table: "Designers",
                 column: "AddressId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_DesigneOffices_CreatedById",
-                table: "DesigneOffices",
+                table: "Designers",
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
@@ -157,7 +157,7 @@ namespace CadDesigner.Infrastructure.Migrations
                 name: "Services");
 
             migrationBuilder.DropTable(
-                name: "DesigneOffices");
+                name: "Designers");
 
             migrationBuilder.DropTable(
                 name: "Addresses");

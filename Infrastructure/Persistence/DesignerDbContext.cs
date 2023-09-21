@@ -18,7 +18,7 @@ namespace CadDesigner.Infrastructure.Persistence
         {
 
         }
-        public DbSet<DesigneOffice> DesigneOffices { get; set; }
+        public DbSet<Designer> Designers { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<User> Users { get; set; }
@@ -48,7 +48,7 @@ namespace CadDesigner.Infrastructure.Persistence
                 .Property(u => u.Name)
                 .IsRequired();
       
-            modelBuilder.Entity<DesigneOffice>()
+            modelBuilder.Entity<Designer>()
                 .Property(r => r.Name)
                 .IsRequired()
                 .HasMaxLength(100);

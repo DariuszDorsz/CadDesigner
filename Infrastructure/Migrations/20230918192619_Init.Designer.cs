@@ -94,7 +94,7 @@ namespace CadDesigner.Infrastructure.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("DesigneOffices");
+                    b.ToTable("Designers");
                 });
 
             modelBuilder.Entity("CadDesigner.Domain.Entitys.Role", b =>
