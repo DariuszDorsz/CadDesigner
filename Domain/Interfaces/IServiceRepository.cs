@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CadDesigner.Domain.Entitys;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace CadDesigner.Domain.Interfaces
 {
     public interface IServiceRepository
     {
-
+        Task CreateAsync(Service service);
+        Task<Service?> GetByIdAsync(int id);
+        Task RemoveAllAsync(IEnumerable<Service> services);
+        Task DeleteAsync(Service service);
     }
 }

@@ -19,8 +19,7 @@ namespace CadDesigner.Infrastructure.Extension
         {
             service.AddDbContext<DesignerDbContext>(option => option.UseSqlServer(configuration.GetConnectionString("CadDesigner")));
             service.AddScoped<IDesignerRepository, DesignerRepository>();
-            service.AddScoped<IServiceRepository, ServiceRepository>();
-           
+            service.AddScoped<IServiceRepository, ServiceRepositor>();          
         }
     }
 }

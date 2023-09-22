@@ -68,6 +68,7 @@ namespace CadDesigner.Aplication.Services
             await _designerRepository.Delete(designer);
         }
 
+
         public async Task<DesignerDto> GetById(int id)
         {
             var designer = await _designerRepository.GetById(id)
@@ -93,12 +94,6 @@ namespace CadDesigner.Aplication.Services
                     { nameof(Designer.Description), r => r.Description },
                     { nameof(Designer.Category), r => r.Category },
                 };
-
-                var selectedColumn = columnsSelectors[query.SortBy];
-
-                // baseQuery = query.SortDirection == SortDirection.ASC
-                //  ? baseQuery.OrderBy(selectedColumn)
-                //  : baseQuery.OrderByDescending(selectedColumn);
             }
 
             var designer = baseQuery

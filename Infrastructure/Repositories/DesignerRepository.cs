@@ -43,7 +43,7 @@ namespace CadDesigner.Infrastructure.Repositories
 
         }
 
-        public async Task<Designer> GetById(int id)
+        public async Task<Designer?> GetById(int id)
         {
             var designer = await _dbContext
             .Designers
@@ -53,7 +53,6 @@ namespace CadDesigner.Infrastructure.Repositories
 
             return designer;
         }
-
 
 
         public async Task<IEnumerable<Designer>> GetAll()
