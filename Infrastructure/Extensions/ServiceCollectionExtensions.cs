@@ -4,7 +4,7 @@ using CadDesigner.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Identity.Client;
 
 namespace CadDesigner.Infrastructure.Extension
 {
@@ -15,7 +15,8 @@ namespace CadDesigner.Infrastructure.Extension
         {
             service.AddDbContext<DesignerDbContext>(option => option.UseSqlServer(configuration.GetConnectionString("CadDesigner")));
             service.AddScoped<IDesignerRepository, DesignerRepository>();
-            service.AddScoped<IServiceRepository, ServiceRepositor>();          
+            service.AddScoped<IServiceRepository, ServiceRepositor>();
+            service.AddScoped<IAccountRepository, AccountRepository>();
         }
     }
 }

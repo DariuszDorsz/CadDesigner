@@ -35,7 +35,6 @@ namespace CadDesigner.Infrastructure.Repositories
         {
             _dbContext.Designers.Remove(designer);
             await _dbContext.SaveChangesAsync();
-
         }
 
         public async Task<Designer?> GetById(int id)
