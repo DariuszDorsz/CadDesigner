@@ -2,13 +2,8 @@
 using CadDesigner.Aplication.MappingProfile;
 using CadDesigner.Aplication.Middleware;
 using CadDesigner.Aplication.Services;
-using CadDesigner.Domain.Entitys;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 namespace CadDesigner.Aplication.Extension

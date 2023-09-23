@@ -2,11 +2,7 @@
 using CadDesigner.Domain.Interfaces;
 using CadDesigner.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CadDesigner.Infrastructure.Repositories
 {
@@ -21,14 +17,14 @@ namespace CadDesigner.Infrastructure.Repositories
         }
 
 
-        public async Task CreateAsync(Service service)
+        public async Task Create(Service service)
         {
             _dbContext.Services.Add(service);
             await _dbContext.SaveChangesAsync();
         }
 
 
-        public async Task<Service?> GetByIdAsync(int id)
+        public async Task<Service?> GetById(int id)
         {
             var designer = await _dbContext
             .Services
@@ -38,7 +34,7 @@ namespace CadDesigner.Infrastructure.Repositories
         }
 
 
-        public async Task RemoveAllAsync (IEnumerable<Service> services)
+        public async Task RemoveAll (IEnumerable<Service> services)
         {
             _dbContext.Services.RemoveRange(services);
 
@@ -46,14 +42,14 @@ namespace CadDesigner.Infrastructure.Repositories
         }
 
 
-        public async Task DeleteAsync(Service service)
+        public async Task Delete(Service service)
         {
             _dbContext.Services.Remove(service);
             await _dbContext.SaveChangesAsync();
         }
 
 
-        public async Task UpdateAsync(Service service)
+        public async Task Update(Service service)
         {
             _dbContext.Services.Update(service);
             await _dbContext.SaveChangesAsync();

@@ -4,13 +4,8 @@ using CadDesigner.Aplication.Exceptions;
 using CadDesigner.Domain.Entitys;
 using CadDesigner.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CadDesigner.Aplication.Services
 {
@@ -51,10 +46,20 @@ namespace CadDesigner.Aplication.Services
             var designer = await _designerRepository.GetById(id)
                 ?? throw new NotFoundException("Designer not found");
 
-            designer.Name = dto.Name;
-            designer.Description = dto.Description;
-
-            await _designerRepository.Update(designer);
+            if (designer.Name != null)
+            {
+                designer.Name = dto.Name;
+            }
+           if (designer.Description != null)
+            {
+                designer.Description = dto.Description;
+            }
+            
+           if (designer != null)
+            {
+                await _designerRepository.Update(designer);
+            }
+           
         }
 
 

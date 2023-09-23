@@ -3,13 +3,7 @@ using CadDesigner.Aplication.DtoModels;
 using CadDesigner.Aplication.Exceptions;
 using CadDesigner.Domain.Entitys;
 using CadDesigner.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
+
 
 namespace CadDesigner.Aplication.Services
 {
@@ -48,7 +42,7 @@ namespace CadDesigner.Aplication.Services
             serviceEntity.DesignerId = designerId;
 
 
-            await _serviceRepository.CreateAsync(serviceEntity);
+            await _serviceRepository.Create(serviceEntity);
 
             return serviceEntity.Id;
         }
@@ -57,7 +51,7 @@ namespace CadDesigner.Aplication.Services
         {
             var designer = await _designerRepository.GetById(designerId) ?? throw new NotFoundException("Designer not found");
 
-            var service = await _serviceRepository.GetByIdAsync(serviceId);
+            var service = await _serviceRepository.GetById(serviceId);
 
             if (service is null || service.DesignerId != designerId)
             {
@@ -74,7 +68,7 @@ namespace CadDesigner.Aplication.Services
             var designer = await _designerRepository.GetById(designerId) ?? throw new NotFoundException("Designer not found");
             var services = designer.Services.ToList() ?? throw new NotFoundException("Services not found");
 
-            await _serviceRepository.RemoveAllAsync(services);
+            await _serviceRepository.RemoveAll(services);
         }
 
 
@@ -94,7 +88,7 @@ namespace CadDesigner.Aplication.Services
            var designer = await _designerRepository.GetById(designerId) ?? throw new NotFoundException("Designer not found");
             var service = designer.Services.FirstOrDefault(s => s.Id == serviceId) ?? throw new NotFoundException("Service not found");
         
-                await _serviceRepository.DeleteAsync(service);
+                await _serviceRepository.Delete(service);
         }
     }
 }
