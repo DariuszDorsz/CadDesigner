@@ -59,7 +59,5 @@ namespace CadDesigner.Infrastructure.Persistence
                 .IsRequired()
                 .HasMaxLength(100);
         }
-
-
     }
 }

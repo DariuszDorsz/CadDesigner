@@ -10,5 +10,6 @@ namespace CadDesigner.Domain.Interfaces
     public interface IAccountRepository
     {
         Task Register(User user);
+        Task<User> GetUser(string email);
     }
 }

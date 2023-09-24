@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddAplication();
+builder.Services.AddAplication(builder.Configuration);
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
 
@@ -27,6 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseAuthentication();
 
 app.UseHttpsRedirection();
 

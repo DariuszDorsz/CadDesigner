@@ -27,7 +27,6 @@ namespace CadDesigner.Infrastructure.Repositories
         {
             _dbContext.Designers.Update(designer);
             await _dbContext.SaveChangesAsync();
-
         }
 
 
