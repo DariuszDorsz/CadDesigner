@@ -3,7 +3,9 @@ using CadDesigner.Aplication.DtoModels;
 using CadDesigner.Aplication.Exceptions;
 using CadDesigner.Domain.Entitys;
 using CadDesigner.Domain.Interfaces;
+using CadDesigner.Domain.Models;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 using System.Linq.Expressions;
 
 
@@ -50,16 +52,16 @@ namespace CadDesigner.Aplication.Services
             {
                 designer.Name = dto.Name;
             }
-           if (designer.Description != null)
+            if (designer.Description != null)
             {
                 designer.Description = dto.Description;
             }
-            
-           if (designer != null)
+
+            if (designer != null)
             {
                 await _designerRepository.Update(designer);
             }
-           
+
         }
 
 
@@ -86,10 +88,11 @@ namespace CadDesigner.Aplication.Services
 
         public async Task<PagedResult<DesignerDto>> GetAll(DesignerQuery query)
         {
-            var allDesigners = await _designerRepository.GetAll();
-            var baseQuery = allDesigners.Where(r => query.SearchPhrase == null || (r.Name.ToLower().Contains(query.SearchPhrase.ToLower())
-                 || r.Description.ToLower().Contains(query.SearchPhrase.ToLower())));
-
+            var allDesigners = _designerRepository.GetAll();
+            var baseQuery = query.SearchPhrase != null 
+                           ? allDesigners.Where(r => query.SearchPhrase != null && (r.Name.ToLower().Contains(query.SearchPhrase.ToLower()) || r.Description.ToLower().Contains(query.SearchPhrase.ToLower())))  
+                            :allDesigners.AsQueryable();
+      
 
             if (!string.IsNullOrEmpty(query.SortBy))
             {
@@ -99,16 +102,20 @@ namespace CadDesigner.Aplication.Services
                     { nameof(Designer.Description), r => r.Description },
                     { nameof(Designer.Category), r => r.Category },
                 };
+
+                var selectedColumn = columnsSelectors[query.SortBy];
+
+                baseQuery = query.SortDirection == Domain.Models.SortDirection.ASC
+                    ? baseQuery.OrderBy(selectedColumn)
+                    : baseQuery.OrderByDescending(selectedColumn);
             }
 
-            var designer = baseQuery
-                .Skip(query.PageSize * (query.PageNumber - 1))
-                .Take(query.PageSize)
-                .ToList();
+            var designers = await _designerRepository.GetPaginationResult(baseQuery, query);
+                
 
             var totalItemsCount = baseQuery.Count();
 
-            var designerDtos = _mapper.Map<List<DesignerDto>>(designer);
+            var designerDtos = _mapper.Map<List<DesignerDto>>(designers);
 
             var result = new PagedResult<DesignerDto>(designerDtos, totalItemsCount, query.PageSize, query.PageNumber);
 

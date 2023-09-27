@@ -9,6 +9,7 @@ namespace CadDesigner.Domain.Entitys
     public class Role
     {
         public int Id { get; set; }
-        public string Name { get; set; } = "Designer";
+        public string Name { get; set; } = default!;
+        public IEnumerable<User> Users { get; set; } = default!;
     }
 }

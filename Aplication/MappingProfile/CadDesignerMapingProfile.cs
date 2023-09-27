@@ -16,10 +16,8 @@ namespace CadDesigner.Aplication.MappingProfile
 
             CreateMap<Service, ServiceDto>();
 
-            CreateMap<CreateDesignertDto, Designer>()
-                .ForMember(r => r.Address,
-                    c => c.MapFrom(dto => new Address()
-                    { City = dto.City, PostalCode = dto.PostalCode, Street = dto.Street }));
+            CreateMap<CreateDesignertDto, Designer>();
+               
 
             CreateMap<CreateServiceDto, Service>();
         }

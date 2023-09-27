@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadDesigner.Infrastructure.Migrations
 {
     [DbContext(typeof(DesignerDbContext))]
-    [Migration("20230918192619_Init")]
-    partial class Init
+    [Migration("20230927191519_inittt")]
+    partial class inittt
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,8 +35,7 @@ namespace CadDesigner.Infrastructure.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
@@ -44,15 +43,14 @@ namespace CadDesigner.Infrastructure.Migrations
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("CadDesigner.Domain.Entitys.DesigneOffice", b =>
+            modelBuilder.Entity("CadDesigner.Domain.Entitys.Designer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,14 +65,6 @@ namespace CadDesigner.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContactEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContactNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CreatedById")
                         .HasColumnType("int");
 
@@ -84,8 +74,7 @@ namespace CadDesigner.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -138,9 +127,6 @@ namespace CadDesigner.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DesigneOfficeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("DesignerId")
                         .HasColumnType("int");
 
@@ -153,7 +139,7 @@ namespace CadDesigner.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DesigneOfficeId");
+                    b.HasIndex("DesignerId");
 
                     b.ToTable("Services");
                 });
@@ -182,7 +168,6 @@ namespace CadDesigner.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nationality")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
@@ -199,11 +184,11 @@ namespace CadDesigner.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CadDesigner.Domain.Entitys.DesigneOffice", b =>
+            modelBuilder.Entity("CadDesigner.Domain.Entitys.Designer", b =>
                 {
                     b.HasOne("CadDesigner.Domain.Entitys.Address", "Address")
                         .WithOne("DesigneOffice")
-                        .HasForeignKey("CadDesigner.Domain.Entitys.DesigneOffice", "AddressId")
+                        .HasForeignKey("CadDesigner.Domain.Entitys.Designer", "AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -220,9 +205,9 @@ namespace CadDesigner.Infrastructure.Migrations
 
             modelBuilder.Entity("CadDesigner.Domain.Entitys.Service", b =>
                 {
-                    b.HasOne("CadDesigner.Domain.Entitys.DesigneOffice", "DesigneOffice")
+                    b.HasOne("CadDesigner.Domain.Entitys.Designer", "DesigneOffice")
                         .WithMany("Services")
-                        .HasForeignKey("DesigneOfficeId")
+                        .HasForeignKey("DesignerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -232,7 +217,7 @@ namespace CadDesigner.Infrastructure.Migrations
             modelBuilder.Entity("CadDesigner.Domain.Entitys.User", b =>
                 {
                     b.HasOne("CadDesigner.Domain.Entitys.Role", "Role")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -246,9 +231,14 @@ namespace CadDesigner.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CadDesigner.Domain.Entitys.DesigneOffice", b =>
+            modelBuilder.Entity("CadDesigner.Domain.Entitys.Designer", b =>
                 {
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("CadDesigner.Domain.Entitys.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

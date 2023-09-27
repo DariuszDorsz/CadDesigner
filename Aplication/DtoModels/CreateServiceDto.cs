@@ -9,11 +9,13 @@ namespace CadDesigner.Aplication.DtoModels
 {
    public class CreateServiceDto
     {
-      
+        [Required]
         public string Name { get; set; } = default!;
+        [Required]
         public string Description { get; set; } = default!;
-        public decimal Price { get; set; }
+        [Required]
+        public decimal Price { get; set; } = default!;
 
-        public int RestaurantId { get; set; }
+        public int RestaurantId { get; set; } = default!;
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace CadDesigner.Infrastructure.Migrations
 {
@@ -18,8 +19,8 @@ namespace CadDesigner.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -46,9 +47,9 @@ namespace CadDesigner.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Nationality = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -71,25 +72,23 @@ namespace CadDesigner.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DesigneOffices", x => x.Id);
+                    table.PrimaryKey("PK_Designers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DesigneOffices_Addresses_AddressId",
+                        name: "FK_Designers_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DesigneOffices_Users_CreatedById",
+                        name: "FK_Designers_Users_CreatedById",
                         column: x => x.CreatedById,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -105,15 +104,14 @@ namespace CadDesigner.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    DesignerId = table.Column<int>(type: "int", nullable: false),
-                    DesigneOfficeId = table.Column<int>(type: "int", nullable: false)
+                    DesignerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Services", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Services_DesigneOffices_DesigneOfficeId",
-                        column: x => x.DesigneOfficeId,
+                        name: "FK_Services_Designers_DesignerId",
+                        column: x => x.DesignerId,
                         principalTable: "Designers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -129,20 +127,20 @@ namespace CadDesigner.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DesigneOffices_AddressId",
+                name: "IX_Designers_AddressId",
                 table: "Designers",
                 column: "AddressId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_DesigneOffices_CreatedById",
+                name: "IX_Designers_CreatedById",
                 table: "Designers",
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_DesigneOfficeId",
+                name: "IX_Services_DesignerId",
                 table: "Services",
-                column: "DesigneOfficeId");
+                column: "DesignerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",

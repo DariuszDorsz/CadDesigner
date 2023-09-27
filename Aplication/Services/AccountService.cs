@@ -41,21 +41,24 @@ namespace CadDesigner.Aplication.Services
         {
             var newUser = new User()
             {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 Email = dto.Email,
                 DateOfBirth = dto.DateOfBirth,
                 Nationality = dto.Nationality,
-                RoleId = dto.RoleId
+                RoleId = 2,
+                
             };
             var hashedPassword = _passwordHasher.HashPassword(newUser, dto.Password);
 
             newUser.PasswordHash = hashedPassword;
-            await _accountRepository.Register(newUser);
+           await _accountRepository.Register(newUser);
         }
 
 
         public async Task<string> GenerateJwt(LoginDto dto)
         {
-            var user = await _accountRepository.GetUser(dto.Email) ?? throw new NotFoundException("Designer not found");
+            var user = await _accountRepository.GetUser(dto.Email) ?? throw new NotFoundException("User not found");
 
 
             var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);

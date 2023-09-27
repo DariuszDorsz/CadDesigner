@@ -1,15 +1,16 @@
 ﻿using CadDesigner.Aplication.DtoModels;
 using CadDesigner.Aplication.Services;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadDesigner.Program.Controllers
 {
-
     [Route("api/accaunt")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
+
         public AccountController(IAccountService accountService)         
         {
             _accountService = accountService;
@@ -19,7 +20,7 @@ namespace CadDesigner.Program.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser([FromBody] RegisterUserDto dto)
         {
-           await _accountService.RegisterUser(dto);
+            await _accountService.RegisterUser(dto);
             return Ok();
         }
 
@@ -31,7 +32,6 @@ namespace CadDesigner.Program.Controllers
             string token = await _accountService.GenerateJwt(dto);
 
             return Ok(token);
-
         }
     }
 }

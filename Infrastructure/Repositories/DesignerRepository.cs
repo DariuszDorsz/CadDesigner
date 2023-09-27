@@ -1,7 +1,10 @@
-﻿using CadDesigner.Domain.Entitys;
+﻿using CadDesigner.Aplication.DtoModels;
+using CadDesigner.Domain.Entitys;
 using CadDesigner.Domain.Interfaces;
+using CadDesigner.Domain.Models;
 using CadDesigner.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace CadDesigner.Infrastructure.Repositories
@@ -36,7 +39,7 @@ namespace CadDesigner.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Designer?> GetById(int id)
+        public async Task<Designer> GetById(int id)
         {
             var designer = await _dbContext
             .Designers
@@ -48,14 +51,21 @@ namespace CadDesigner.Infrastructure.Repositories
         }
 
 
-        public async Task<IEnumerable<Designer>> GetAll()
+        public IQueryable<Designer> GetAll()
         {
+            var designer = _dbContext
+                           .Designers
+                           .Include(r => r.Address)
+                           .Include(r => r.Services);
 
-           var designer = await _dbContext
-            .Designers
-            .Include(r => r.Address)
-            .Include(r => r.Services)
-            .ToListAsync();
+            return designer;
+        }
+
+
+        public async Task<IEnumerable<Designer>> GetPaginationResult(IQueryable<Designer> basequery, DesignerQuery query)
+        {
+            var designer = await basequery.Skip(query.PageSize * (query.PageNumber - 1))
+                                          .Take(query.PageSize).ToListAsync();
 
             return designer;
         }

@@ -12,17 +12,11 @@ namespace CadDesigner.Domain.Entitys
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
         public string Category { get; set; } = default!;
-        public string ContactEmail { get; set; } = default!;
-        public string ContactNumber { get; set; } = default!;
 
-
-
-        public int CreatedById { get; set; }
+        public int CreatedById { get; set; } = default!;
         public virtual User CreatedBy { get; set; } = default!;
-
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         public virtual Address Address { get; set; } = default!;
-
         public virtual List<Service> Services { get; set; } = new();
     }
 }

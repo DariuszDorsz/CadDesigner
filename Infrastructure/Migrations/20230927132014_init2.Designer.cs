@@ -4,6 +4,7 @@ using CadDesigner.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadDesigner.Infrastructure.Migrations
 {
     [DbContext(typeof(DesignerDbContext))]
-    partial class DesignerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230927132014_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +58,7 @@ namespace CadDesigner.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Category")
@@ -76,8 +79,7 @@ namespace CadDesigner.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId")
-                        .IsUnique()
-                        .HasFilter("[AddressId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("CreatedById");
 
@@ -165,6 +167,9 @@ namespace CadDesigner.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Liczba")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nationality")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -187,7 +192,9 @@ namespace CadDesigner.Infrastructure.Migrations
                 {
                     b.HasOne("CadDesigner.Domain.Entitys.Address", "Address")
                         .WithOne("DesigneOffice")
-                        .HasForeignKey("CadDesigner.Domain.Entitys.Designer", "AddressId");
+                        .HasForeignKey("CadDesigner.Domain.Entitys.Designer", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CadDesigner.Domain.Entitys.User", "CreatedBy")
                         .WithMany()

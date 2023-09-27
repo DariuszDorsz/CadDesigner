@@ -1,5 +1,6 @@
 ﻿using CadDesigner.Aplication.DtoModels;
 using CadDesigner.Aplication.Services;
+using CadDesigner.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadDesigner.Program.Controllers

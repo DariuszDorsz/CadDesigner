@@ -1,9 +1,13 @@
 ﻿
+using CadDesigner.Aplication.DtoModels;
 using CadDesigner.Aplication.MappingProfile;
 using CadDesigner.Aplication.Middleware;
 using CadDesigner.Aplication.Services;
 using CadDesigner.Aplication.Setings;
 using CadDesigner.Domain.Entitys;
+using CadDesigner.Domain.Models;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +30,8 @@ namespace CadDesigner.Aplication.Extension
             service.AddScoped<IServiceService, ServiceService>();
             service.AddScoped<IAccountService, AccountService>();
             service.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+
             service.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = "Bearer";

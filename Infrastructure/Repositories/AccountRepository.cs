@@ -1,4 +1,5 @@
-﻿using CadDesigner.Domain.Entitys;
+﻿using CadDesigner.Aplication.Exceptions;
+using CadDesigner.Domain.Entitys;
 using CadDesigner.Domain.Interfaces;
 using CadDesigner.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -27,16 +28,13 @@ namespace CadDesigner.Infrastructure.Repositories
         }
 
 
-        public async Task<User?> GetUser(string email)
+        public async Task<User> GetUser(string email)
         {
           var user = await _dbContext.Users
-                    .Include(r => r.Role)
-                    .FirstOrDefaultAsync(u=>u.Email==email);
+                           .Include(r => r.Role)
+                           .FirstOrDefaultAsync(u => u.Email == email);
 
             return user;
         }
-
-
-
     }
 }

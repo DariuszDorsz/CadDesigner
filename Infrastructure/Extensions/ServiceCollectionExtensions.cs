@@ -1,6 +1,11 @@
-﻿using CadDesigner.Domain.Interfaces;
+﻿using CadDesigner.Aplication.DtoModels;
+using CadDesigner.Domain.Interfaces;
+using CadDesigner.Domain.Models;
 using CadDesigner.Infrastructure.Persistence;
 using CadDesigner.Infrastructure.Repositories;
+using CadDesigner.Infrastructure.Validators;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +22,9 @@ namespace CadDesigner.Infrastructure.Extension
             service.AddScoped<IDesignerRepository, DesignerRepository>();
             service.AddScoped<IServiceRepository, ServiceRepositor>();
             service.AddScoped<IAccountRepository, AccountRepository>();
+            service.AddControllers().AddFluentValidation();
+            service.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+            service.AddScoped<IValidator<DesignerQuery>, DesignerQueryValidator>();
         }
     }
 }

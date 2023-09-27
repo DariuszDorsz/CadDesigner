@@ -11,9 +11,8 @@ namespace CadDesigner.Domain.Entitys
         public int Id { get; set; }
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
-        public int Price { get; set; }
-
-        public int DesignerId { get; set; }
+        public int Price { get; set; } = default!;
+        public int DesignerId { get; set; } = default!;
         public virtual Designer DesigneOffice { get; set; } = default!;
     }
 }

@@ -16,6 +16,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddAplication(builder.Configuration);
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -24,7 +25,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c=>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "CadDesigner");
+    });
 }
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseAuthentication();

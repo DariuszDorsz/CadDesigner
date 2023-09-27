@@ -12,7 +12,6 @@ namespace CadDesigner.Domain.Entitys
         public string City { get; set; } = default!;
         public string Street { get; set; } = default!;
         public string PostalCode { get; set; } = default!;
-
         public virtual Designer DesigneOffice { get; set; } = default!;
     }
 }

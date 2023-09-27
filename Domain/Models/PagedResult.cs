@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CadDesigner.Domain.Entitys
+namespace CadDesigner.Domain.Models
 {
     public class PagedResult<T>
     {

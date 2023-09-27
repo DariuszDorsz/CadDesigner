@@ -24,7 +24,7 @@ namespace CadDesigner.Infrastructure.Repositories
         }
 
 
-        public async Task<Service?> GetById(int id)
+        public async Task<Service> GetById(int id)
         {
             var designer = await _dbContext
             .Services

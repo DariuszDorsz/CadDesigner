@@ -19,10 +19,6 @@ namespace CadDesigner.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .Property(u => u.Email)
-                .IsRequired();
-
             modelBuilder.Entity<Role>().HasData(
            new Role
            {
@@ -36,28 +32,7 @@ namespace CadDesigner.Infrastructure.Persistence
            }
            );
 
-            modelBuilder.Entity<Role>()
-                .Property(u => u.Name)
-                .IsRequired();
-      
-            modelBuilder.Entity<Designer>()
-                .Property(r => r.Name)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            modelBuilder.Entity<Service>()
-                .Property(d => d.Name)
-                .IsRequired();
-
-            modelBuilder.Entity<Address>()
-                .Property(a => a.City)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            modelBuilder.Entity<Address>()
-                .Property(a => a.Street)
-                .IsRequired()
-                .HasMaxLength(100);
+            modelBuilder.Entity<User>().HasOne(u => u.Role).WithMany(r=>r.Users).HasForeignKey(u => u.RoleId);  
         }
     }
 }

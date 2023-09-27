@@ -39,7 +39,7 @@ namespace CadDesigner.Aplication.Services
 
             var serviceEntity = _mapper.Map<Service>(dto);
 
-            serviceEntity.DesignerId = designerId;
+            serviceEntity.DesignerId = designer.Id;
 
 
             await _serviceRepository.Create(serviceEntity);
@@ -53,7 +53,7 @@ namespace CadDesigner.Aplication.Services
 
             var service = await _serviceRepository.GetById(serviceId);
 
-            if (service is null || service.DesignerId != designerId)
+            if (service is null || service.DesignerId != designer.Id)
             {
                 throw new NotFoundException("Services not found");
             }
