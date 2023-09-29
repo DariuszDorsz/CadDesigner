@@ -17,6 +17,6 @@ namespace CadDesigner.Aplication.DtoModels
         public string Street { get; set; } = default!;
         public string PostalCode { get; set; } = default!;
 
-        public List<ServiceDto> Services { get; set; } = new();
+        public List<ServiceDto>? Services { get; set; } = new();
     }
 }

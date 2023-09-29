@@ -43,9 +43,9 @@ namespace CadDesigner.Program.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<ServiceDto>>> Get([FromRoute] int restaurantId)
+        public async Task<ActionResult<List<ServiceDto>>> GetAll([FromRoute] int designerId)
         {
-            var result = await _serviceService.GetAll(restaurantId);
+            var result = await _serviceService.GetAll(designerId);
             return Ok(result);
         }
 
