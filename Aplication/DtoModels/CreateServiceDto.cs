@@ -15,7 +15,7 @@ namespace CadDesigner.Aplication.DtoModels
         public string Description { get; set; } = default!;
         [Required]
         public decimal Price { get; set; } = default!;
-
-        public int RestaurantId { get; set; } = default!;
+        [Required]
+        public int DesignertId { get; set; } = default!;
     }
 }

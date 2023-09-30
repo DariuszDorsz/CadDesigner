@@ -1,12 +1,14 @@
 ﻿using CadDesigner.Aplication.DtoModels;
 using CadDesigner.Aplication.Services;
 using CadDesigner.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadDesigner.Program.Controllers
 {
     [Route("api/designer")]
     [ApiController]
+    [Authorize]
     public class DesignersController : ControllerBase
     {
         private readonly IDesignerService _designerService;
@@ -23,8 +25,9 @@ namespace CadDesigner.Program.Controllers
 
             return Created($"/api/designer/{id}", null);
         }
-
-        [HttpGet]      
+     
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<DesignerDto>>> GetAll([FromQuery] DesignerQuery query)
         {
             var designerDtos = await _designerService.GetAll(query);
@@ -41,6 +44,7 @@ namespace CadDesigner.Program.Controllers
             return Ok();
         }
 
+   
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([FromRoute] int id)
         {
@@ -48,8 +52,9 @@ namespace CadDesigner.Program.Controllers
 
             return NoContent();
         }
-
+     
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<DesignerDto>> Get([FromRoute] int id)
         {
             var designer = await _designerService.GetById(id);

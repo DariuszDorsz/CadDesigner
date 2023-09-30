@@ -26,7 +26,7 @@ namespace CadDesigner.Program.Controllers
 
 
 
-        [HttpPost("login")]
+        [HttpGet("login")]
         public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
         {
             string token = await _accountService.GenerateJwt(dto);

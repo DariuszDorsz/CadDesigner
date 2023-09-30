@@ -1,11 +1,13 @@
 ﻿using CadDesigner.Aplication.DtoModels;
 using CadDesigner.Aplication.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadDesigner.Program.Controllers
 {
-    [Route("api/designer/{designerId}/service")]
+    [Route("api/service/{designerId}/")]
     [ApiController]
+    [Authorize]
     public class ServiceController : ControllerBase
     {
         private readonly IServiceService _serviceService;
@@ -34,7 +36,7 @@ namespace CadDesigner.Program.Controllers
 
 
         [HttpDelete]
-        public async Task<ActionResult> Delete([FromRoute] int designerId)
+        public async Task<ActionResult> DeleteAll([FromRoute] int designerId)
         {
             await _serviceService.RemoveAll(designerId);
 
@@ -50,7 +52,7 @@ namespace CadDesigner.Program.Controllers
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{serviceId}")]
         public async Task<ActionResult> Delete([FromRoute] int designerId, [FromRoute] int serviceId) 
         {
             await _serviceService.Delete(designerId, serviceId);
